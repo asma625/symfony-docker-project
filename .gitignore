@@ -1,0 +1,14 @@
+# Symfony
+/symfony/var/
+/symfony/vendor/
+/symfony/.env.local
+/symfony/.env.*.local
+
+# Docker
+/docker/.env
+/docker/mysql/data
+
+# OS / IDE
+/.idea/
+/.vscode/
+/.DS_Store
