@@ -81,7 +81,9 @@ sf-dmm: ## Migrate.
 sf-fixtures: ## Load fixtures.
 	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) doctrine:fixtures:load --no-interaction"
 .PHONY: sf-fixtures
-
+sf-user-create: ## Create user.
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) make:user"
+.PHONY: sf-user-create
 sf-me: ## Make symfony entity
 	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) make:entity"
 .PHONY: sf-me
@@ -121,10 +123,16 @@ sf-open: ## Open project in a browser.
 sf-open-email: ## Open Email catcher.
 	$(PHP_EXEC) bash -c "$(SYMFONY) open:local:webmail"
 .PHONY: sf-open-email
+sf-auth:#authentication
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) make:auth"
+.PHONY: sf-auth
 
 sf-check-requirements: ## Check requirements.
 	$(PHP_EXEC) bash -c "$(SYMFONY) check:requirements"
 .PHONY: sf-check-requirements
+sf-registration:#registration
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) make:registration-form"
+.PHONY: sf-registration
 #---------------------------------------------#
 
 ## === 📦  COMPOSER ==============================================
@@ -143,6 +151,30 @@ composer-validate: ## Validate composer.json file.
 composer-validate-deep: ## Validate composer.json and composer.lock files in strict mode.
 	$(PHP_EXEC) bash -c "$(COMPOSER) validate --strict --check-lock"
 .PHONY: composer-validate-deep
+
+composer-req-sec: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/security-bundle:^7.4"
+.PHONY: composer-req-sec
+
+composer-req-twig: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/twig-bundle:^7.4"
+.PHONY: composer-req-twig
+
+composer-req-form: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/form:^7.4"
+.PHONY: composer-req-form
+
+composer-req-maker: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/maker-bundle --dev"
+.PHONY: composer-req-maker
+
+composer-req-validator: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/validator:^7.4"
+.PHONY: composer-req-validator
+
+composer-req-phpunit: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require --dev phpunit/phpunit ^10.0"
+.PHONY: composer-req-phpunit
 #---------------------------------------------#
 
 
