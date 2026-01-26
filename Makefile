@@ -133,6 +133,10 @@ sf-check-requirements: ## Check requirements.
 sf-registration:#registration
 	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) make:registration-form"
 .PHONY: sf-registration
+
+sf-show-router: ## Show current route information.
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) debug:router"
+.PHONY: sf-show-router
 #---------------------------------------------#
 
 ## === 📦  COMPOSER ==============================================
@@ -175,6 +179,9 @@ composer-req-validator: ## require a package (make composer-req package="package
 composer-req-phpunit: ## require a package (make composer-req package="package-name").
 	$(PHP_EXEC) bash -c "$(COMPOSER) require --dev phpunit/phpunit ^10.0"
 .PHONY: composer-req-phpunit
+composer-req-profiler: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require --dev symfony/profiler-pack"
+.PHONY: composer-req-profiler
 #---------------------------------------------#
 
 
