@@ -17,15 +17,17 @@ use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class UsersAuthenticator extends AbstractLoginFormAuthenticator
+
+
 {
-    use TargetPathTrait;
+    use TargetPathTrait;//tu vas sur un url -> tu n'est pas connecté -> te redirige vers /login après retour auto vers ton url 
 
     public const LOGIN_ROUTE = 'app_login';
 
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
     }
-
+    
     public function authenticate(Request $request): Passport
     {
         $email = $request->getPayload()->getString('email');
@@ -57,4 +59,5 @@ class UsersAuthenticator extends AbstractLoginFormAuthenticator
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
+    
 }

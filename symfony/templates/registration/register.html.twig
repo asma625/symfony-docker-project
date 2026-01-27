@@ -1,19 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}S'inscrire{% endblock %}
+{% block title %}S'inscrire
+{% endblock %}
 
 {% block body %}
-    <h1>M'inscrire</h1>
+	<div class="container mt-3">
+		<div class="jumbotron text-center py-5" style="min-height:400px;">
+			<div class="">
+				<div class="row justify-content-center">
+					<div class="col-md-8">
 
-    {{ form_errors(registrationForm) }}
+						<div class="text-center mb-4 reg-icon">
+							<i class="fa fa-user fa-3x"></i>
+							<h2>M'inscrire</h2>
+						</div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+						{{ form_start(registrationForm, { attr: { class: 'row g-3' } }) }}
 
-        <button type="submit" class="btn">M'inscrire</button>
-    {{ form_end(registrationForm) }}
-{% endblock %}
+						{{ form_errors(registrationForm) }}
+
+						<div class="col-12">
+							{{ form_label(registrationForm.email, 'registration.email_label'|trans) }}
+							{{ form_widget(registrationForm.email, { attr: { class: 'form-control' } }) }}
+							{{ form_errors(registrationForm.email) }}
+						</div>
+
+						<div class="col-12">
+							{{ form_label(registrationForm.plainPassword, 'registration.password_label'|trans) }}
+							{{ form_widget(registrationForm.plainPassword, { attr: { class: 'form-control' } }) }}
+							{{ form_errors(registrationForm.plainPassword) }}
+						</div>
+
+						<div class="col-12 form-check">
+							{{ form_label(registrationForm.agreeTerms, 'registration.agree_terms_label'|trans , { attr: { class: 'form-check-label' } }) }}
+							{{ form_widget(registrationForm.agreeTerms, { attr: { class: 'form-check-input' } }) }}
+							{{ form_errors(registrationForm.agreeTerms) }}
+						</div>
+
+						<div class="col-12 text-center">
+							<button type="submit" class="btn btn-info">
+								{{ 'registration.submit'|trans }}
+							</button>
+
+						</div>
+
+						{{ form_end(registrationForm) }}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}

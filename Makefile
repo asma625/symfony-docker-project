@@ -182,6 +182,13 @@ composer-req-phpunit: ## require a package (make composer-req package="package-n
 composer-req-profiler: ## require a package (make composer-req package="package-name").
 	$(PHP_EXEC) bash -c "$(COMPOSER) require --dev symfony/profiler-pack"
 .PHONY: composer-req-profiler
+
+composer-req-assets: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/asset:^7.4"
+.PHONY: composer-req-assets
+composer-req-translation: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/translation:^7.4"
+.PHONY: composer-req-translation
 #---------------------------------------------#
 
 
