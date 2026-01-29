@@ -137,6 +137,9 @@ sf-registration:#registration
 sf-show-router: ## Show current route information.
 	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) debug:router"
 .PHONY: sf-show-router
+sf-mcache: ## Clear symfony cache.
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) cache:clear --no-warmup"
+.PHONY: sf-mcache
 #---------------------------------------------#
 
 ## === 📦  COMPOSER ==============================================
@@ -189,6 +192,9 @@ composer-req-assets: ## require a package (make composer-req package="package-na
 composer-req-translation: ## require a package (make composer-req package="package-name").
 	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/translation:^7.4"
 .PHONY: composer-req-translation
+composer-req-doctrine: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/orm-pack"
+.PHONY: composer-req-doctrine
 #---------------------------------------------#
 
 

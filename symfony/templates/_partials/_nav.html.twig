@@ -1,0 +1,190 @@
+<header class="site-header" role="banner">
+	<div class="wrap">
+		<a class="brand" href="#" aria-label="Home">
+			<span class="logo" aria-hidden="true">
+				<svg width="18" height="18" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4 12L12 4L20 12L12 20L4 12Z" stroke="white" stroke-width="2"/>
+					<circle cx="12" cy="12" r="2" fill="white"/>
+				</svg>
+			</span>
+			<strong>Asma</strong>
+		</a>
+
+		<button class="burger" aria-controls="mobile-drawer" aria-expanded="false">
+			<svg width="18" height="18" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true">
+				<path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/>
+			</svg>
+			Menu
+		</button>
+
+		<nav aria-label="Primary">
+			<ul
+				class="nav-list">
+				<!-- Products (Mega) -->
+				<li class="nav-item" data-type="mega" aria-expanded="false">
+					<a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">
+						Products
+						<svg class="caret" viewbox="0 0 10 6" aria-hidden="true">
+							<path d="M1 1l4 4l4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+						</svg>
+					</a>
+					<div class="panel" role="menu" aria-label="Products">
+						<div class="menu-grid">
+							<div class="menu-col">
+								<a class="item" href="#">
+									<span class="icn">🧭</span>
+									<span>
+										<span class="label">Analytics Cloud</span>
+										<span class="sub">Live dashboards, KPIs, forecasting</span>
+									</span>
+								</a>
+								<a class="item" href="#">
+									<span class="icn">🤖</span>
+									<span>
+										<span class="label">AI Studio</span>
+										<span class="sub">ML pipelines & inference</span>
+									</span>
+								</a>
+								<a class="item" href="#">
+									<span class="icn">🔐</span>
+									<span>
+										<span class="label">Secure Vault</span>
+										<span class="sub">Key management, rotation, audit</span>
+									</span>
+								</a>
+							</div>
+							<div class="menu-col">
+								<a class="item" href="#">
+									<span class="icn">🧩</span>
+									<span>
+										<span class="label">Integrations Hub</span>
+										<span class="sub">500+ connectors & webhooks</span>
+									</span>
+								</a>
+								<a class="item" href="#">
+									<span class="icn">⚡️</span>
+									<span>
+										<span class="label">Edge Functions</span>
+										<span class="sub">Ultra-low latency at the edge</span>
+									</span>
+								</a>
+								<a class="item" href="#">
+									<span class="icn">📦</span>
+									<span>
+										<span class="label">Subscriptions</span>
+										<span class="sub">Recurring payments & billing</span>
+									</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</li>
+
+				<!-- Solutions -->
+				<li class="nav-item" aria-expanded="false">
+					<a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">
+						Solutions
+						<svg class="caret" viewbox="0 0 10 6" aria-hidden="true">
+							<path d="M1 1l4 4l4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+						</svg>
+					</a>
+					<div class="panel" role="menu" aria-label="Solutions">
+						<ul>
+							<li><a href="#">eCommerce</a></li>
+							<li><a href="#">SaaS B2B</a></li>
+							<li><a href="#">FinTech</a></li>
+							<li><a href="#">EduTech</a></li>
+						</ul>
+					</div>
+				</li>
+
+				<!-- Resources -->
+				<li class="nav-item" aria-expanded="false">
+					<a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">
+						Resources
+						<svg class="caret" viewbox="0 0 10 6" aria-hidden="true">
+							<path d="M1 1l4 4l4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+						</svg>
+					</a>
+					<div class="panel" role="menu" aria-label="Resources">
+						<ul>
+							<li><a href="#">Documentation</a></li>
+							<li><a href="#">Tutorials</a></li>
+							<li><a href="#">Blog</a></li>
+							<li><a href="#">Status</a></li>
+						</ul>
+					</div>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="#">Pricing</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="utils">
+			<button class="particles-toggle" id="particles-toggle" aria-pressed="true" title="Toggle background particles">Particles</button>
+
+			<button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme">
+				<svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M12 3a9 9 0 0 0 9 9 9 9 0 1 1-9-9z"/>
+				</svg>
+				<span class="mode" id="theme-mode-label">System</span>
+			</button>
+
+			<button class="btn">Start free</button>
+		</div>
+	</div>
+</header>
+<!-- Mobile Drawer -->
+<div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+<aside class="drawer" id="mobile-drawer" aria-hidden="true" aria-label="Mobile menu">
+	<div class="section">
+		<h4>Products</h4>
+		<a href="#">
+			<span class="icn">🧭</span>
+			Analytics Cloud</a>
+		<a href="#">
+			<span class="icn">🤖</span>
+			AI Studio</a>
+		<a href="#">
+			<span class="icn">🔐</span>
+			Secure Vault</a>
+		<a href="#">
+			<span class="icn">🧩</span>
+			Integrations Hub</a>
+		<a href="#">
+			<span class="icn">⚡️</span>
+			Edge Functions</a>
+		<a href="#">
+			<span class="icn">📦</span>
+			Subscriptions</a>
+	</div>
+
+	<div class="section">
+		<h4>Solutions</h4>
+		<a href="#">eCommerce</a>
+		<a href="#">SaaS B2B</a>
+		<a href="#">FinTech</a>
+		<a href="#">EduTech</a>
+	</div>
+
+	<div class="section">
+		<h4>Resources</h4>
+		<a href="#">Documentation</a>
+		<a href="#">Tutorials</a>
+		<a href="#">Blog</a>
+		<a href="#">Status</a>
+	</div>
+
+	<div class="section">
+		<a href="#" class="btn" style="display:inline-block; text-align:center">Start free</a>
+	</div>
+
+	<div class="section">
+		<h4>Appearance</h4>
+		<a href="#" id="theme-light">🌤️ Light</a>
+		<a href="#" id="theme-dark">🌙 Dark</a>
+		<a href="#" id="theme-system">🖥️ System</a>
+	</div>
+</aside>

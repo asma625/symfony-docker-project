@@ -33,6 +33,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $adress = null;
+
+    #[ORM\Column(length: 5, nullable: true)]
+    private ?string $zipcode = null;
+
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $city = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -112,5 +127,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // @deprecated, to be removed when upgrading to Symfony 8
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): static
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?string $adress): static
+    {
+        $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getZipcode(): ?string
+    {
+        return $this->zipcode;
+    }
+
+    public function setZipcode(?string $zipcode): static
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): static
+    {
+        $this->city = $city;
+
+        return $this;
     }
 }

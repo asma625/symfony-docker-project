@@ -1,6 +1,8 @@
 services:
     php:
         user: "${UID:-1000}:${GID:-1000}"
+        environment:
+           home: home/app
         build: ./docker/php
         volumes:
             - ./symfony:/var/www:delegated

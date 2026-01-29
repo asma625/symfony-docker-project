@@ -5,7 +5,7 @@
 
 {% block body %}
 	<div class="container mt-3">
-		<div class="jumbotron text-center py-5" style="min-height:400px;">
+		<div class="jumbotron text-center login-purple-pink py-5" style="min-height:400px;">
 			<div class="">
 				<div class="row justify-content-center">
 					<div class="col-md-8">
@@ -20,25 +20,46 @@
 						{{ form_errors(registrationForm) }}
 
 						<div class="col-12">
-							{{ form_label(registrationForm.email, 'registration.email_label'|trans) }}
 							{{ form_widget(registrationForm.email, { attr: { class: 'form-control' } }) }}
 							{{ form_errors(registrationForm.email) }}
 						</div>
+						<div class="col-12">
+							{{ form_widget(registrationForm.firstname, { attr: { class: 'form-control' } }) }}
+							{{ form_errors(registrationForm.firstname) }}
+						</div>
+						<div class="col-12">
+							
+							{{ form_widget(registrationForm.lastname, { attr: { class: 'form-control' } }) }}
+							{{ form_errors(registrationForm.lastname) }}
+						</div>
+						<div class="col-12">
+							
+							{{ form_widget(registrationForm.adress, { attr: { class: 'form-control' } }) }}
+							{{ form_errors(registrationForm.adress) }}
+						</div>
+						<div class="col-12">
+							
+							{{ form_widget(registrationForm.zipcode, { attr: { class: 'form-control' } }) }}
+							{{ form_errors(registrationForm.zipcode) }}
+						</div>
+						<div class="col-12">
+							
+							{{ form_widget(registrationForm.city, { attr: { class: 'form-control' } }) }}
+							{{ form_errors(registrationForm.city) }}
+						</div>
 
 						<div class="col-12">
-							{{ form_label(registrationForm.plainPassword, 'registration.password_label'|trans) }}
 							{{ form_widget(registrationForm.plainPassword, { attr: { class: 'form-control' } }) }}
 							{{ form_errors(registrationForm.plainPassword) }}
 						</div>
 
 						<div class="col-12 form-check">
-							{{ form_label(registrationForm.agreeTerms, 'registration.agree_terms_label'|trans , { attr: { class: 'form-check-label' } }) }}
 							{{ form_widget(registrationForm.agreeTerms, { attr: { class: 'form-check-input' } }) }}
 							{{ form_errors(registrationForm.agreeTerms) }}
 						</div>
 
 						<div class="col-12 text-center">
-							<button type="submit" class="btn btn-info">
+							<button type="submit" class="btn btn-register btn-sm  w-100">
 								{{ 'registration.submit'|trans }}
 							</button>
 
