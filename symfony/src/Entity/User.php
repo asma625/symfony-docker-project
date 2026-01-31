@@ -48,6 +48,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $city = null;
 
+    #[ORM\Column]
+    private ?bool $isVerified = null;
+
+    public function __construct()
+    {
+        $this->isVerified = false;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -185,6 +193,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCity(?string $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function isVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

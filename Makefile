@@ -140,6 +140,9 @@ sf-show-router: ## Show current route information.
 sf-mcache: ## Clear symfony cache.
 	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) cache:clear --no-warmup"
 .PHONY: sf-mcache
+sf-generate-jwt-keys: ## Generate JWT keys.
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) lexik:jwt:generate-keypair"
+.PHONY: sf-generate-jwt-keys
 #---------------------------------------------#
 
 ## === 📦  COMPOSER ==============================================
@@ -195,6 +198,16 @@ composer-req-translation: ## require a package (make composer-req package="packa
 composer-req-doctrine: ## require a package (make composer-req package="package-name").
 	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/orm-pack"
 .PHONY: composer-req-doctrine
+composer-req-mailer: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/mailer:^7.4"
+.PHONY: composer-req-mailer
+composer-req-jwt: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require lexik/jwt-authentication-bundle"
+.PHONY: composer-req-jwt
+composer-req-http-fn: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/http-foundation:^7.4"
+.PHONY: composer-req-http-fn
+
 #---------------------------------------------#
 
 
