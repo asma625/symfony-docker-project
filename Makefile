@@ -143,6 +143,14 @@ sf-mcache: ## Clear symfony cache.
 sf-generate-jwt-keys: ## Generate JWT keys.
 	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) lexik:jwt:generate-keypair"
 .PHONY: sf-generate-jwt-keys
+
+sf-commands: ## List and Use All Symfony commands (make sf command="commande-name").
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) make:command"	
+.PHONY: sf-commands
+
+sf-create-admin: ## Create first admin user.
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) app:create-admin"
+.PHONY: sf-create-admin
 #---------------------------------------------#
 
 ## === 📦  COMPOSER ==============================================
@@ -207,6 +215,10 @@ composer-req-jwt: ## require a package (make composer-req package="package-name"
 composer-req-http-fn: ## require a package (make composer-req package="package-name").
 	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/http-foundation:^7.4"
 .PHONY: composer-req-http-fn
+
+composer-req-password-hasher: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/password-hasher:^7.4"
+.PHONY: composer-req-password-hasher
 
 #---------------------------------------------#
 
