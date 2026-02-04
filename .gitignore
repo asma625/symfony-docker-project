@@ -3,7 +3,7 @@
 /symfony/vendor/
 /symfony/.env.local
 /symfony/.env.*.local
-
+/symfony/.env
 # Docker
 /docker/.env
 /docker/mysql/data

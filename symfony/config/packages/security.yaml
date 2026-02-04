@@ -47,8 +47,13 @@ security:
 
     # Note: Only the *first* matching rule is applied
     access_control:
+        - { path: ^/login, roles: PUBLIC_ACCESS }   # page login accessible à tous
+        - { path: ^/logout, roles: PUBLIC_ACCESS }  # logout accessible à tous
+        - { path: ^/reset-password, roles: PUBLIC_ACCESS }  # reset password accessible à tous
+        - { path: ^/forgot-password, roles: PUBLIC_ACCESS }  # forgot password accessible à tous
+        - { path: ^/register, roles: PUBLIC_ACCESS }  # page d'enregistrement accessible à tous
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/, roles: ROLE_USER }
 
 when@test:
     security:
