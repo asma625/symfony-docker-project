@@ -21,7 +21,7 @@ class Categories
     #[ORM\Column(length: 60)]
     private ?string $slug = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories', cascade : {'persist'})]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories', cascade: ['persist'])]
     private ?self $parent = null;
 
     /**

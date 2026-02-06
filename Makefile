@@ -9,6 +9,7 @@ PHP_EXEC = $(DOCKER_COMPOSE) exec $(PHP)
 DOCKER_COMPOSE_UP = $(DOCKER_COMPOSE) up -d
 DOCKER_COMPOSE_STOP = $(DOCKER_COMPOSE) stop
 DOCKER_COMPOSE_DOWN = $(DOCKER_COMPOSE) down
+DOCKER_COMPOSE_START = $(DOCKER_COMPOSE) start
 #------------#
 
 #---SYMFONY--#
@@ -43,6 +44,10 @@ docker-stop: ## Stop docker containers.
 .PHONY: docker-stop
 docker-down: ## Stop and remove docker containers.
 	$(DOCKER_COMPOSE_DOWN)
+.PHONY: docker-down
+docker-start: ## Start docker containers.
+	$(DOCKER_COMPOSE_START)
+.PHONY: docker-start
 #---------------------------------------------#
 
 ## === 🎛️  SYMFONY ===============================================

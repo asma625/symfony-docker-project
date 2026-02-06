@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PostsRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Posts
 {
     #[ORM\Id]
@@ -49,6 +50,9 @@ class Posts
      */
     #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: 'posts', orphanRemoval: true)]
     private Collection $comments;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
 
     public function __construct()
     {
@@ -198,5 +202,18 @@ class Posts
         }
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        if ($this->createdAt === null) {
+            $this->createdAt = new \DateTimeImmutable();
+        }
     }
 }
