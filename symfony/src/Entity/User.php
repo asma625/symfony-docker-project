@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -32,6 +34,50 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $adress = null;
+
+    #[ORM\Column(length: 5, nullable: true)]
+    private ?string $zipcode = null;
+
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $city = null;
+
+    #[ORM\Column]
+    private ?bool $isVerified = null;
+
+    /**
+     * @var Collection<int, Posts>
+     */
+    #[ORM\OneToMany(targetEntity: Posts::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $posts;
+
+    /**
+     * @var Collection<int, Comments>
+     */
+    #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $comments;
+
+    /**
+     * @var Collection<int, FamilyMember>
+     */
+    #[ORM\OneToMany(targetEntity: FamilyMember::class, mappedBy: 'user')]
+    private Collection $familyMembers;
+
+    public function __construct()
+    {
+        $this->isVerified = false;
+        $this->posts = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->familyMembers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -112,5 +158,167 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // @deprecated, to be removed when upgrading to Symfony 8
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): static
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?string $adress): static
+    {
+        $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getZipcode(): ?string
+    {
+        return $this->zipcode;
+    }
+
+    public function setZipcode(?string $zipcode): static
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): static
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function isVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Posts>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Posts $post): static
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Posts $post): static
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getUser() === $this) {
+                $post->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comments>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getUsers() === $this) {
+                $comment->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FamilyMember>
+     */
+    public function getFamilyMembers(): Collection
+    {
+        return $this->familyMembers;
+    }
+
+    public function addFamilyMember(FamilyMember $familyMember): static
+    {
+        if (!$this->familyMembers->contains($familyMember)) {
+            $this->familyMembers->add($familyMember);
+            $familyMember->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFamilyMember(FamilyMember $familyMember): static
+    {
+        if ($this->familyMembers->removeElement($familyMember)) {
+            // set the owning side to null (unless already changed)
+            if ($familyMember->getUser() === $this) {
+                $familyMember->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

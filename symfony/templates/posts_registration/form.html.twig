@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription EasyPosts{% endblock %}
+
+{% block body %}
+<article>
+    <header>
+        <h1>EasyPosts</h1>
+        <p>Formulaire d'inscription multi-étapes</p>
+    </header>
+
+    {# Barre de progression simple #}
+    <nav>
+        <ul>
+            {% for step in form.vars.visible_steps %}
+                <li>
+                    <strong>
+                        {% if step.index < form.vars.cursor.stepIndex %}✓{% else %}{{ loop.index }}{% endif %}
+                    </strong>
+                    {% if step.name == 'Users' %}Profil
+                    {% elseif step.name == 'Adress' %}Adresse
+                    {% elseif step.name == 'posts' %}Articles
+                    {% elseif step.name == 'confirmation' %}Validation
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    {% set current_step_title = form.vars.cursor.currentStep %}
+    {% if current_step_title == 'Users' %}
+        <h2>👤 Vos informations personnelles</h2>
+    {% elseif current_step_title == 'Adress' %}
+        <h2>🌍 Votre adresse</h2>
+    {% elseif current_step_title == 'posts' %}
+        <h2>📝 Vos articles</h2>
+    {% elseif current_step_title == 'confirmation' %}
+        <h2>✅ Dernière étape !</h2>
+    {% endif %}
+
+    {{ form_start(form) }}
+        {% set current_step = form.vars.cursor.currentStep %}
+        
+        {% if form.vars.errors|length > 0 %}
+            <mark>
+                <strong>⚠️ Erreurs détectées</strong>
+                <ul>
+                    {% for error in form.vars.errors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            </mark>
+        {% endif %}
+
+        {{ form_widget(form[current_step]) }}
+
+        <div role="group">
+            {% if form.navigator is defined %}
+                {% if form.navigator.previous is defined %}
+                    {{ form_widget(form.navigator.previous, {'attr': {'class': 'secondary'}, 'label': '← Précédent'}) }}
+                {% endif %}
+                {% if form.navigator.next is defined %}
+                    {{ form_widget(form.navigator.next, {'label': 'Suivant →'}) }}
+                {% endif %}
+                {% if form.navigator.finish is defined %}
+                    {{ form_widget(form.navigator.finish, {'label': '✓ Terminer'}) }}
+                {% endif %}
+            {% endif %}
+        </div>
+    {{ form_end(form) }}
+</article>
+{% endblock %}

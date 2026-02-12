@@ -1,0 +1,5 @@
+registration:
+    email_label: "Adresse e-mail"
+    password_label: "Mot de passe"
+    agree_terms_label: "J'accepte les conditions"
+    submit: "M'inscrire"

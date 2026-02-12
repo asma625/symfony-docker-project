@@ -9,6 +9,7 @@ PHP_EXEC = $(DOCKER_COMPOSE) exec $(PHP)
 DOCKER_COMPOSE_UP = $(DOCKER_COMPOSE) up -d
 DOCKER_COMPOSE_STOP = $(DOCKER_COMPOSE) stop
 DOCKER_COMPOSE_DOWN = $(DOCKER_COMPOSE) down
+DOCKER_COMPOSE_START = $(DOCKER_COMPOSE) start
 #------------#
 
 #---SYMFONY--#
@@ -43,6 +44,10 @@ docker-stop: ## Stop docker containers.
 .PHONY: docker-stop
 docker-down: ## Stop and remove docker containers.
 	$(DOCKER_COMPOSE_DOWN)
+.PHONY: docker-down
+docker-start: ## Start docker containers.
+	$(DOCKER_COMPOSE_START)
+.PHONY: docker-start
 #---------------------------------------------#
 
 ## === 🎛️  SYMFONY ===============================================
@@ -133,6 +138,24 @@ sf-check-requirements: ## Check requirements.
 sf-registration:#registration
 	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) make:registration-form"
 .PHONY: sf-registration
+
+sf-show-router: ## Show current route information.
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) debug:router"
+.PHONY: sf-show-router
+sf-mcache: ## Clear symfony cache.
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) cache:clear --no-warmup"
+.PHONY: sf-mcache
+sf-generate-jwt-keys: ## Generate JWT keys.
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) lexik:jwt:generate-keypair"
+.PHONY: sf-generate-jwt-keys
+
+sf-commands: ## List and Use All Symfony commands (make sf command="commande-name").
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) make:command"	
+.PHONY: sf-commands
+
+sf-create-admin: ## Create first admin user.
+	$(PHP_EXEC) bash -c "$(SYMFONY_CONSOLE) app:create-admin"
+.PHONY: sf-create-admin
 #---------------------------------------------#
 
 ## === 📦  COMPOSER ==============================================
@@ -175,6 +198,33 @@ composer-req-validator: ## require a package (make composer-req package="package
 composer-req-phpunit: ## require a package (make composer-req package="package-name").
 	$(PHP_EXEC) bash -c "$(COMPOSER) require --dev phpunit/phpunit ^10.0"
 .PHONY: composer-req-phpunit
+composer-req-profiler: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require --dev symfony/profiler-pack"
+.PHONY: composer-req-profiler
+
+composer-req-assets: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/asset:^7.4"
+.PHONY: composer-req-assets
+composer-req-translation: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/translation:^7.4"
+.PHONY: composer-req-translation
+composer-req-doctrine: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/orm-pack"
+.PHONY: composer-req-doctrine
+composer-req-mailer: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/mailer:^7.4"
+.PHONY: composer-req-mailer
+composer-req-jwt: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require lexik/jwt-authentication-bundle"
+.PHONY: composer-req-jwt
+composer-req-http-fn: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/http-foundation:^7.4"
+.PHONY: composer-req-http-fn
+
+composer-req-password-hasher: ## require a package (make composer-req package="package-name").
+	$(PHP_EXEC) bash -c "$(COMPOSER) require symfony/password-hasher:^7.4"
+.PHONY: composer-req-password-hasher
+
 #---------------------------------------------#
 
 
