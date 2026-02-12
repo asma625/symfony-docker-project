@@ -15,7 +15,14 @@ class KeywordsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Keywords::class);
     }
+    public function save(Keywords $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
 
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
     //    /**
     //     * @return Keywords[] Returns an array of Keywords objects
     //     */

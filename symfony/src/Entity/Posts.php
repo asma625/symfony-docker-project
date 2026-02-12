@@ -83,9 +83,10 @@ class Posts
         return $this->slug;
     }
 
-    public function setSlug(string $slug): static
+    #[ORM\PrePersist]
+    public function setSlug(): static
     {
-        $this->slug = $slug;
+         $this->slug = strtolower(str_replace(' ', '-', $this->title));
 
         return $this;
     }

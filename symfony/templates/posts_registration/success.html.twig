@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription réussie{% endblock %}
+
+{% block body %}
+<article>
+    <header>
+        <h1>🎉 Bienvenue sur EasyTravel !</h1>
+        <p>Votre inscription a été confirmée</p>
+    </header>
+
+    <section>
+        <h2>📋 Récapitulatif</h2>
+
+        <h3>Informations personnelles</h3>
+        <ul>
+            <li><strong>Nom :</strong> {{ data.individual.firstName }} {{ data.individual.lastName }}</li>
+            <li><strong>Préférence :</strong> 
+                {% if data.individual.travelPreference == 'aventure' %}🏔️ Aventure
+                {% elseif data.individual.travelPreference == 'detente' %}🏖️ Détente
+                {% else %}🏛️ Culture
+                {% endif %}
+            </li>
+        </ul>
+
+        <h3>Préférences de voyage</h3>
+        <ul>
+            <li><strong>Budget :</strong> 
+                {% if data.preferences.budget == '<1000' %}💰 Moins de 1000€
+                {% elseif data.preferences.budget == '1000-3000' %}💰💰 Entre 1000€ et 3000€
+                {% else %}💰💰💰 Plus de 3000€
+                {% endif %}
+            </li>
+            <li><strong>Newsletter :</strong> {{ data.preferences.newsletter ? '✅ Inscrit' : '❌ Non inscrit' }}</li>
+            {% if data.preferences.destinations|length > 0 %}
+                <li><strong>Destinations :</strong>
+                    <ul>
+                        {% for destination in data.preferences.destinations %}
+                            <li>{{ destination|replace({'_': ' '})|capitalize }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+    </section>
+
+    <footer>
+        <a href="{{ path('app_travel_registration') }}" role="button">
+            🏠 Nouvelle inscription
+        </a>
+    </footer>
+</article>
+{% endblock %}

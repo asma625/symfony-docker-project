@@ -44,11 +44,12 @@ class SecurityController extends AbstractController
     ): Response {
         $formForgotPassword = $this->createForm(ResetPasswordRequestFormType::class);
         $formForgotPassword->handleRequest($request);
-        $user = $userRepository->findOneByEmail(
-            $formForgotPassword->get('email')->getData()
-        );
+
 
         if ($formForgotPassword->isSubmitted() && $formForgotPassword->isValid()) {
+            $user = $userRepository->findOneByEmail(
+                $formForgotPassword->get('email')->getData()
+            );
             //génère un jwt token et envoie un email avec le lien de réinitialisation
             $header = ['typ' => 'JWT', 'alg' => 'HS256'];
             $payload = ['user_id' => $user->getId(), 'email' => $user->getEmail(), 'aud' => 'reset_password'];
@@ -100,6 +101,9 @@ class SecurityController extends AbstractController
                         )
                     );
                     $userRepository->save($user, true);
+                    //invalider le token jwt sinon je peux réinitialiser le mot de passe plusieurs fois avec le même token et 
+                    //je serai tjrs redirigé vers la page de réinitialisation de mot de passe
+                    $request->getSession()->invalidate();
 
                     $this->addFlash('success', 'Votre mot de passe a bien été réinitialisé. Vous pouvez maintenant vous connecter.');
                     return $this->redirectToRoute('app_login');

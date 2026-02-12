@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: KeywordsRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Keywords
 {
     #[ORM\Id]
@@ -53,10 +54,11 @@ class Keywords
     {
         return $this->slug;
     }
-
-    public function setSlug(string $slug): static
+    
+    #[ORM\PrePersist]
+    public function setSlug(): static
     {
-        $this->slug = $slug;
+        $this->slug = strtolower(str_replace(' ', '-', $this->name));
 
         return $this;
     }

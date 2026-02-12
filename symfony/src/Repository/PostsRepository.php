@@ -18,6 +18,15 @@ class PostsRepository extends ServiceEntityRepository
         parent::__construct($registry, Posts::class);
     }
 
+    public function save(Posts $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     public function findRecentPosts(int $limit = 5): array 
     {
         $result = $this->createQueryBuilder('p')

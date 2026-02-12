@@ -65,11 +65,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $comments;
 
+    /**
+     * @var Collection<int, FamilyMember>
+     */
+    #[ORM\OneToMany(targetEntity: FamilyMember::class, mappedBy: 'user')]
+    private Collection $familyMembers;
+
     public function __construct()
     {
         $this->isVerified = false;
         $this->posts = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->familyMembers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -279,6 +286,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getUsers() === $this) {
                 $comment->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FamilyMember>
+     */
+    public function getFamilyMembers(): Collection
+    {
+        return $this->familyMembers;
+    }
+
+    public function addFamilyMember(FamilyMember $familyMember): static
+    {
+        if (!$this->familyMembers->contains($familyMember)) {
+            $this->familyMembers->add($familyMember);
+            $familyMember->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFamilyMember(FamilyMember $familyMember): static
+    {
+        if ($this->familyMembers->removeElement($familyMember)) {
+            // set the owning side to null (unless already changed)
+            if ($familyMember->getUser() === $this) {
+                $familyMember->setUser(null);
             }
         }
 
