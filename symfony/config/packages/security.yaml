@@ -24,6 +24,7 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
+      
 
             remember_me:
                 secret: '%kernel.secret%'
@@ -38,11 +39,21 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
+        admin:
+            pattern: ^/admin
+            provider: app_user_provider
+            custom_authenticator: App\Security\UsersAdminAuthenticator
+            lazy: true
 
     # Note: Only the *first* matching rule is applied
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login, roles: PUBLIC_ACCESS }   # page login accessible à tous
+        - { path: ^/logout, roles: PUBLIC_ACCESS }  # logout accessible à tous
+        - { path: ^/reset-password, roles: PUBLIC_ACCESS }  # reset password accessible à tous
+        - { path: ^/forgot-password, roles: PUBLIC_ACCESS }  # forgot password accessible à tous
+        - { path: ^/register, roles: PUBLIC_ACCESS }  # page d'enregistrement accessible à tous
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/, roles: ROLE_USER }
 
 when@test:
     security:

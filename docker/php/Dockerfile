@@ -31,5 +31,10 @@ RUN chmod +x /usr/local/bin/install-php-extensions \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 RUN curl -sS https://get.symfony.com/cli/installer | bash \
     && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
+    # on definit le dossier home de l'utilisateur sur le container php pour eviter des problemes de droits, le fait de rajouter
+    # le user dans le docker-compose a soulever des problemes de droits d'ecriture dans le dossier home par defaut /root
+RUN mkdir -p /home/app \
+ && chown -R 1000:1000 /home/app
+ENV HOME=/home/app
 
 WORKDIR /var/www
